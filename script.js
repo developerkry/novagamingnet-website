@@ -1,7 +1,21 @@
 // Fetch data from the backend
 async function fetchData(endpoint) {
-    const response = await fetch(`/.netlify/functions/${endpoint}`);
-    return response.json();
+    try {
+        const response = await fetch(`/.netlify/functions/${endpoint}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            return await response.json();
+        } else {
+            throw new Error("Response is not valid JSON");
+        }
+    } catch (error) {
+        console.error(`Error fetching data from ${endpoint}:`, error);
+        throw error; // Re-throw the error to handle it in the calling function
+    }
 }
 
 // Display Featured Servers
