@@ -116,6 +116,10 @@ function applyFilters() {
     const gameFilter = document.getElementById("filter-game").value;
     const priceFilter = document.getElementById("filter-price").value;
     const shopItemsElements = document.querySelectorAll(".shop-item");
+
+    // If there are no shop items, do nothing
+    if (shopItemsElements.length === 0) return;
+
     let hasVisibleItems = false;
 
     shopItemsElements.forEach(item => {
