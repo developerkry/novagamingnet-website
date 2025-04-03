@@ -24,8 +24,17 @@ exports.handler = async () => {
       [weightedServers[i], weightedServers[j]] = [weightedServers[j], weightedServers[i]];
     }
 
-    // Select up to 5 servers
-    const featuredServers = weightedServers.slice(0, 5);
+    // Select up to 5 unique servers
+    const featuredServers = [];
+    const seenServers = new Set();
+
+    for (const server of weightedServers) {
+      if (!seenServers.has(server.name)) {
+        featuredServers.push(server);
+        seenServers.add(server.name);
+      }
+      if (featuredServers.length === 5) break; // Stop once we have 5 servers
+    }
 
     return {
       statusCode: 200,
