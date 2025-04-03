@@ -28,12 +28,12 @@ exports.handler = async () => {
     const featuredServers = [];
     const seenServers = new Set();
 
-    for (const server of weightedServers) {
+    for (let i = 0; i < weightedServers.length && featuredServers.length < 5; i++) {
+      const server = weightedServers[i];
       if (!seenServers.has(server.name)) {
         featuredServers.push(server);
         seenServers.add(server.name);
       }
-      if (featuredServers.length === 5) break; // Stop once we have 5 servers
     }
 
     return {
