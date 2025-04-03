@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOVA Forums</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="alert-container"></div> <!-- Alert container -->
+    <nav>
+      <div class="logo">
+        <img src="img/NOVASticker.png" alt="Logo Icon" class="logo-icon" />
+        NOVA Gaming Network
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html#featured">Featured</a></li>
+        <li><a href="index.html#games">Games</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="forums.html" class="active">Forums</a></li>
+        <li><a href="account.html">Account</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero">
+      <h1>Welcome to the NOVA Forums</h1>
+      <p>Engage with the community, share ideas, and discuss topics!</p>
+    </header>
+
+    <!-- Login Popup Modal -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Login</h2>
+        <form id="login-form">
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit" class="cta-button">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Register</h2>
+        <form id="register-form">
+          <input type="text" id="register-username" placeholder="Enter your username" required />
+          <input type="email" id="register-email" placeholder="Enter your email" required />
+          <input type="password" id="register-password" placeholder="Enter your password" required />
+          <button type="submit" class="cta-button">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Login here</a></p>
+      </div>
+    </div>
+
+    <section id="forums">
+      <h2>Forum Categories</h2>
+      <div class="forums-container">
+        <div class="forum-category">
+          <h3>General Discussion</h3>
+          <p>Talk about anything related to gaming and development.</p>
+          <a href="topics.html?category=general-discussion" class="cta-button">View Topics</a>
+        </div>
+        <div class="forum-category">
+          <h3>Updates</h3>
+          <p>Stay updated with the latest news and announcements.</p>
+          <a href="topics.html?category=updates" class="cta-button">View Topics</a>
+        </div>
+        <div class="forum-category">
+          <h3>Support</h3>
+          <p>Get help and support from the community and staff.</p>
+          <a href="topics.html?category=support" class="cta-button">View Topics</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 NOVA Gaming Network. All Rights Reserved.</p>
+    </footer>
+
+    <script src="./alerts.js"></script>
+    <script src="forums.js"></script>
+  </body>
+</html>

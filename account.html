@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="alert-container"></div> <!-- Alert container -->
+    <nav>
+      <div class="logo">
+        <img src="img/NOVASticker.png" alt="Logo Icon" class="logo-icon" />
+        NOVA Gaming Network
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html#featured">Featured</a></li>
+        <li><a href="index.html#games">Games</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="forums.html">Forums</a></li>
+        <li><a href="account.html" class="active">Account</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero">
+      <h1>Account Management</h1>
+      <p>View and update your account details.</p>
+    </header>
+
+    <!-- Login Popup Modal -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Login</h2>
+        <form id="login-form">
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit" class="cta-button">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Register</h2>
+        <form id="register-form">
+          <input type="text" id="register-username" placeholder="Enter your username" required />
+          <input type="email" id="register-email" placeholder="Enter your email" required />
+          <input type="password" id="register-password" placeholder="Enter your password" required />
+          <button type="submit" class="cta-button">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Login here</a></p>
+      </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button" onclick="document.getElementById('auth-modal').style.display='none'">&times;</span>
+        <h2>Authenticate</h2>
+        <form id="auth-form">
+          <input type="password" id="auth-password" placeholder="Enter your password" required />
+          <button type="submit" class="cta-button">Authenticate</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Input Modal -->
+    <div id="input-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button" onclick="document.getElementById('input-modal').style.display='none'">&times;</span>
+        <h2 id="input-modal-title">Input</h2>
+        <form id="input-modal-form">
+          <input type="text" id="input-modal-field" placeholder="Enter value" required />
+          <button type="submit" class="cta-button">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Account Management Section -->
+    <section id="account-management">
+      <h2>Your Account</h2>
+      <div class="account-info">
+        <div class="account-field">
+          <label>Avatar:</label>
+          <img id="avatar-preview" src="https://i.imgur.com/WFSYLmd.jpg" alt="Avatar Preview" style="width: 100px; height: 100px; border-radius: 50%;" />
+          <button id="change-avatar-button" class="cta-button" style="display: none;">Change Avatar</button>
+        </div>
+        <div class="account-field">
+          <label>Username:</label>
+          <span id="username-display">Loading...</span>
+          <button id="change-username-button" class="cta-button" style="display: none;">Edit</button>
+        </div>
+        <div class="account-field">
+          <label>Email:</label>
+          <span id="email-display">Loading...</span>
+          <button id="change-email-button" class="cta-button" style="display: none;">Edit</button>
+        </div>
+        <div class="account-field">
+          <label>Password:</label>
+          <span>********</span>
+          <button id="change-password-button" class="cta-button" style="display: none;">Change</button>
+        </div>
+      </div>
+      <button id="logout-button" class="cta-button logout-button">Log Out</button>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 NOVA Gaming Network. All Rights Reserved.</p>
+    </footer>
+
+    <script src="./alerts.js"></script>
+    <script src="account.js"></script>
+  </body>
+</html>

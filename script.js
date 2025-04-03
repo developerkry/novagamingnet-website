@@ -98,7 +98,7 @@ async function displayShop() {
                         <span>${item.game}</span>
                         <span>$${item.price}</span>
                     </p>
-                    <button class="item-button" onclick="alert('Added ${item.name} to cart')">Add</button>
+                    <button class="item-button" onclick="showAlert('Added ${item.name} to cart', 'success')">Add</button>
                 </div>
             `).join("");
         }

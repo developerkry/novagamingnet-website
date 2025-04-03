@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOVA Discussions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="img/NOVASticker.png" alt="Logo Icon" class="logo-icon" />
+        NOVA Gaming Network
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html#featured">Featured</a></li>
+        <li><a href="index.html#games">Games</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="forums.html">Forums</a></li>
+        <li><a href="account.html">Account</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero">
+      <h1 id="discussion-title">Discussions</h1>
+      <p>Join the conversation and share your thoughts!</p>
+    </header>
+
+    <section id="discussion-threads">
+      <h2>Threads</h2>
+      <div class="threads-container" id="threads-container">
+        <p>Loading threads...</p>
+      </div>
+    </section>
+
+    <section id="new-thread">
+      <h2>Create a New Thread</h2>
+      <form id="new-thread-form">
+        <input type="text" id="thread-title" placeholder="Thread Title" required />
+        <textarea id="thread-content" placeholder="Write your content here..." required></textarea>
+        <button type="submit" class="cta-button">Post Thread</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 NOVA Gaming Network. All Rights Reserved.</p>
+    </footer>
+
+    <script src="./alerts.js"></script>
+    <script src="discussions.js"></script>
+  </body>
+</html>
