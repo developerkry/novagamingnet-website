@@ -21,11 +21,11 @@ const servers = [
 
 // Shop items
 const shopItems = [
-    { name: "Item 1", price: 10, game: "FiveM", img: "./img/NOVA Gaming Network.png" },
-    { name: "Item 2", price: 20, game: "Garry's Mod", img: "./img/NOVA.png" },
-    { name: "Item 3", price: 30, game: "Beam.NG", img: "./img/Plus.png" },
-    { name: "Item 4", price: 40, game: "Minecraft: Java Edition", img: "./img/Basic.png" },
-    { name: "Item 5", price: 50, game: "Minecraft: Bedrock Edition", img: "./img/Premium.png" },
+    { name: "Item 1", price: 5, game: "FiveM", img: "./img/NOVA Gaming Network.png" },
+    { name: "Item 2", price: 25, game: "Garry's Mod", img: "./img/NOVA.png" },
+    { name: "Item 3", price: 50, game: "Beam.NG", img: "./img/Plus.png" },
+    { name: "Item 4", price: 100, game: "Minecraft: Java Edition", img: "./img/Basic.png" },
+    { name: "Item 5", price: 0, game: "Minecraft: Bedrock Edition", img: "./img/Premium.png" },
 ];
 
 // Selects featured servers with bias
@@ -50,7 +50,7 @@ function displayFeatured() {
             <div class="server-item">
                 <img src="${server.img}" alt="${server.name}">
                 <h3>${server.name}</h3>
-                <p>${server.game}</p>
+                <button class="item-button" onclick="alert('Connecting to ${server.name}')">Join</button>
             </div>
         `;
     });
@@ -74,6 +74,7 @@ function displayGames() {
                     <div class="game-item">
                         <img src="${server.img}" alt="${server.name}">
                         <h4>${server.name}</h4>
+                        <button class="item-button" onclick="alert('Connecting to ${server.name}')">Join</button>
                     </div>
                 `).join("")}
             </div>
@@ -88,8 +89,11 @@ function displayShop() {
         <div class="shop-item" data-game="${item.game}" data-price="${item.price}">
             <img src="${item.img}" alt="${item.name}">
             <h3>${item.name}</h3>
-            <p>${item.game}</p>
-            <p2>$${item.price}</p2>
+            <p>
+                <span>${item.game}</span>
+                <span>$${item.price}</span>
+            </p>
+            <button class="item-button" onclick="alert('Added ${item.name} to cart')">Add</button>
         </div>
     `).join("");
 }
@@ -101,9 +105,25 @@ document.getElementById("filter-price").addEventListener("change", applyFilters)
 function applyFilters() {
     const gameFilter = document.getElementById("filter-game").value;
     const priceFilter = document.getElementById("filter-price").value;
-    const shopItems = document.querySelectorAll(".shop-item");
+    const shopContainer = document.getElementById("shop-list");
 
-    shopItems.forEach(item => {
+    // Reset shop items
+    shopContainer.innerHTML = shopItems.map(item => `
+        <div class="shop-item" data-game="${item.game}" data-price="${item.price}">
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>
+                <span>${item.game}</span>
+                <span>$${item.price}</span>
+            </p>
+            <button class="item-button" onclick="alert('Added ${item.name} to cart')">Add</button>
+        </div>
+    `).join("");
+
+    const shopItemsElements = document.querySelectorAll(".shop-item");
+    let hasVisibleItems = false;
+
+    shopItemsElements.forEach(item => {
         const gameMatch = gameFilter === "" || item.dataset.game === gameFilter;
         const priceMatch =
             priceFilter === "" ||
@@ -112,11 +132,56 @@ function applyFilters() {
             (priceFilter === "mid" && item.dataset.price >= 10 && item.dataset.price <= 50) ||
             (priceFilter === "high" && item.dataset.price > 50);
 
-        item.style.display = gameMatch && priceMatch ? "block" : "none";
+        const isVisible = gameMatch && priceMatch;
+        item.style.display = isVisible ? "block" : "none";
+
+        if (isVisible) {
+            hasVisibleItems = true;
+        }
     });
+
+    // Display a message if no items match the filters
+    if (!hasVisibleItems) {
+        shopContainer.innerHTML = `<p class="no-items-message">No items match the selected filters.</p>`;
+    }
 }
+
+// Sponsors data
+const sponsors = [
+    { name: "Sponsor 1", img: "./img/basic.png", link: "https://example.com" },
+    { name: "Sponsor 2", img: "./img/premium.png", link: "https://example.com" },
+    { name: "Sponsor 3", img: "./img/plus.png", link: "https://example.com" },
+];
+
+// Display Sponsors
+function displaySponsors() {
+    const sponsorsContainer = document.getElementById("sponsors-container");
+    sponsorsContainer.innerHTML = sponsors.map(sponsor => `
+        <div class="sponsor-item">
+            <img src="${sponsor.img}" alt="${sponsor.name}" />
+            <h4>${sponsor.name}</h4>
+            <button class="item-button" onclick="window.open('${sponsor.link}', '_blank')">Visit</button>
+        </div>
+    `).join("");
+}
+
+// Navbar hide/show on scroll for mobile
+let lastScrollY = window.scrollY;
+const navbar = document.querySelector("nav");
+
+window.addEventListener("scroll", () => {
+    if (window.innerWidth <= 768) { // Apply only on mobile
+        if (window.scrollY > lastScrollY) {
+            navbar.style.transform = "translateY(-100%)"; // Hide navbar
+        } else {
+            navbar.style.transform = "translateY(0)"; // Show navbar
+        }
+        lastScrollY = window.scrollY;
+    }
+});
 
 // Initialize
 displayFeatured();
 displayGames();
 displayShop();
+displaySponsors();

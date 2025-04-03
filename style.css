@@ -6,15 +6,22 @@ body {
     background: #131313;
     color: white;
     text-align: center;
+    padding-top: 70px; /* Add padding to prevent content from being hidden under the navbar */
 }
 
 /* Navbar */
 nav {
     background-color: #030303;
-    padding: 15px;
+    padding: 10px 20px; /* Adjust padding for a more compact look */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed; /* Make the navbar sticky */
+    top: 0; /* Stick to the top of the screen */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    transition: transform 0.3s ease; /* Smooth hide/show transition */
 }
 
 .logo {
@@ -35,6 +42,7 @@ nav {
     list-style: none;
     display: flex;
     gap: 20px;
+    margin-right: 50px; /* Push links to the left on desktop */
 }
 
 .nav-links li a {
@@ -106,6 +114,13 @@ nav {
     background-color: #4752c4;
 }
 
+/* Section Styling */
+
+section h2 {
+    font-size: 50px;
+    margin: 5px;
+}
+
 /* Featured Section */
 .featured-list {
     display: flex;
@@ -113,24 +128,109 @@ nav {
     gap: 20px;
     flex-wrap: wrap;
     padding: 20px;
+    background-color: #00000027;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 2rem;
 }
 
-.server-item {
-    background-color: #1b1b1b;
-    padding: 15px;
+/* Shared Item Styling */
+.server-item,
+.game-item,
+.shop-item {
+    background-color: #222;
+    padding: 0; /* Remove padding to align the image and text */
     border-radius: 10px;
-    width: 200px;
-    text-align: center;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Align content to the bottom */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border: #000000 solid 2px;
+    position: relative;
+    overflow: hidden; /* Ensure the overlay stays within the card */
+    transition: all 0.3s ease;
 }
 
-.server-item img {
+.server-item img,
+.game-item img,
+.shop-item img {
     max-width: 100%;
-    height: 150px;
+    max-height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0px 6px rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.server-item:hover,
+.game-item:hover,
+.shop-item:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Dim the card */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    transform: scale(1.02); /* Slightly enlarge the card */
+}
+
+.server-item:hover img,
+.game-item:hover img,
+.shop-item:hover img {
+    opacity: 0.3; /* Dim the image */
+    transition: opacity 0.3s ease;
+}
+
+/* Name at the Bottom for Servers, Games, and Sponsors */
+.server-item h3,
+.game-item h4,
+.sponsor-item h4 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 1; /* Ensure the text is above the image */
+}
+
+/* Name at the Top for Shop Items */
+.shop-item h3 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 1; /* Ensure the text is above the image */
+}
+
+.shop-item p {
+    position: absolute;
+    bottom: 0; /* Position at the bottom */
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 1; /* Ensure the text is above the image */
+}
+
+.shop-item p span {
+    display: block; /* Ensure price and game are on separate lines */
+}
+
+.server-item:hover .item-button,
+.game-item:hover .item-button,
+.shop-item:hover .item-button {
+    display: block; /* Show button */
 }
 
 /* Games Section */
@@ -148,32 +248,32 @@ nav {
     align-items: center; /* Center align items */
     gap: 10px; /* Space between items */
     width: auto; /* Adjust width to fit content */
+    background-color: #00000031;
+    border-radius: 2rem;
+    padding: 2%;
 }
 
 .game-list {
-    display: flex; /* Display games side by side */
-    flex-wrap: wrap; /* Allow wrapping if necessary */
-    gap: 15px; /* Space between games */
-    justify-content: center; /* Center games horizontally */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 15px; /* Space between items */
+    max-height: calc(2 * 150px + 15px); /* Limit to 2 rows (item height + gap) */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds 2 rows */
+    padding: 10px;
+    scrollbar-width: thin; /* For Firefox */
 }
 
-.game-item {
-    background-color: #1b1b1b;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    box-sizing: border-box; /* Include padding in width calculation */
-    width: 200px; /* Fixed width for consistency */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border: #000000 solid 2px;
+.game-list::-webkit-scrollbar {
+    width: 8px; /* For WebKit browsers */
 }
 
-.game-item img {
-    max-width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0px 6px rgba(255, 255, 255, 0.3);
+.game-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+}
+
+.game-list::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Shop Section */
@@ -200,32 +300,109 @@ nav {
     gap: 20px;
 }
 
-.shop-item {
-    padding: 15px;
-    border-radius: 10px;
-    width: 250px;
-    text-align: center;
-    background-color: #1b1b1b;
+.no-items-message {
+    color: white;
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Sponsors/Partners Section */
+#sponsors {
+    padding: 20px;
+    background-color: #1b1b1b;
+    text-align: center;
+    margin: 20px 0;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border: #000000 solid 2px;
 }
 
-.shop-item h3 {
-    font-size: 35px;
-    margin: 5px;
+#sponsors h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 30px;
 }
 
-.shop-item p2 {
-    font-size: 20px;
+.sponsors-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.shop-item img {
+.sponsor-item {
+    background-color: #222;
+    padding: 0; /* Remove padding to align the image and text */
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Align content to the bottom */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden; /* Ensure the overlay stays within the card */
+    transition: all 0.3s ease;
+}
+
+.sponsor-item img {
     max-width: 100%;
-    max-height: 150px;
+    max-height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0px 6px rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.sponsor-item:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Dim the card */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    transform: scale(1.02); /* Slightly enlarge the card */
+}
+
+.sponsor-item:hover img {
+    opacity: 0.3; /* Dim the image */
+    transition: opacity 0.3s ease;
+}
+
+.sponsor-item:hover .item-button {
+    display: block; /* Show button */
+}
+
+.sponsor-item h4 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    margin: 0;
+}
+
+/* General Button Styling */
+.item-button {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2; /* Ensure the button is above the dimmed background */
+}
+
+.item-button:hover {
+    background-color: #4752c4;
 }
 
 /* Footer */
@@ -233,4 +410,137 @@ footer {
     background-color: #000000;
     padding: 15px;
     margin-top: 20px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Navbar */
+    nav {
+        flex-direction: column; /* Stack logo and links vertically */
+        align-items: flex-start;
+        padding: 10px 15px; /* Reduce padding for a more compact look */
+    }
+
+    .logo {
+        font-size: 20px;
+        gap: 5px;
+    }
+
+    .nav-links {
+        flex-direction: column; /* Stack links vertically */
+        gap: 10px;
+        width: 100%;
+        text-align: left;
+        margin-left: 0; /* Reset margin for mobile */
+    }
+
+    .nav-links li a {
+        font-size: 16px; /* Reduce font size for mobile */
+    }
+
+    /* Hero Section */
+    .hero {
+        padding-top: 100px; /* Add padding to prevent overlap with navbar */
+    }
+
+    .hero h1 {
+        font-size: 50px; /* Reduce font size */
+    }
+
+    .hero p {
+        font-size: 18px; /* Reduce font size */
+    }
+
+    .hero-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    .cta-button {
+        width: 100%; /* Full width buttons */
+        padding: 15px;
+    }
+
+    /* Banner Image */
+    .banner img {
+        max-width: 90%; /* Reduce banner size */
+    }
+
+    /* Featured Section */
+    .featured-list {
+        gap: 10px; /* Reduce gap between items */
+    }
+
+    /* Games Section */
+    .game-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+        gap: 10px; /* Reduce gap between items */
+    }
+
+    /* Shop Section */
+    .filters {
+        flex-direction: column; /* Stack filters vertically */
+        gap: 10px;
+    }
+
+    .filters select {
+        width: 100%; /* Full width dropdowns */
+    }
+
+    .shop-items {
+        gap: 10px; /* Reduce gap between items */
+    }
+
+    /* Sponsors Section */
+    .sponsors-container {
+        gap: 10px; /* Reduce gap between sponsors */
+    }
+
+    /* General Adjustments */
+    section h2 {
+        font-size: 30px; /* Reduce section heading size */
+    }
+
+    .no-items-message {
+        font-size: 16px; /* Adjust font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Navbar */
+    nav {
+        align-items: center; /* Center-align logo and links */
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        font-size: 14px;
+    }
+
+    /* Hero Section */
+    .hero h1 {
+        font-size: 40px; /* Further reduce font size */
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    /* Banner Image */
+    .banner img {
+        max-width: 100%; /* Full width banner */
+    }
+
+    /* Games Section */
+    .game-list {
+        grid-template-columns: 1fr; /* 1 item per row */
+    }
+
+    /* Shop Section */
+    .shop-items {
+        grid-template-columns: 1fr; /* 1 item per row */
+    }
 }
