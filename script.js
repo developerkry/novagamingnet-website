@@ -32,7 +32,7 @@ async function displayFeatured() {
                 <div class="server-item">
                     <img src="${server.img}" alt="${server.name}">
                     <h3>${server.name}</h3>
-                    <button class="item-button" onclick="alert('Connecting to ${server.name}')">Join</button>
+                    <button class="item-button" onclick="window.open('${server.joinLink}', '_blank')">Join</button>
                 </div>
             `).join("");
         }
@@ -67,7 +67,7 @@ async function displayGames() {
                             <div class="game-item">
                                 <img src="${server.img}" alt="${server.name}">
                                 <h4>${server.name}</h4>
-                                <button class="item-button" onclick="alert('Connecting to ${server.name}')">Join</button>
+                                <button class="item-button" onclick="window.open('${server.joinLink}', '_blank')">Join</button>
                             </div>
                         `).join("")}
                     </div>
@@ -115,8 +115,6 @@ document.getElementById("filter-price").addEventListener("change", applyFilters)
 function applyFilters() {
     const gameFilter = document.getElementById("filter-game").value;
     const priceFilter = document.getElementById("filter-price").value;
-    const shopContainer = document.getElementById("shop-list");
-
     const shopItemsElements = document.querySelectorAll(".shop-item");
     let hasVisibleItems = false;
 
@@ -137,9 +135,19 @@ function applyFilters() {
         }
     });
 
+    // Remove the "no items" message if it exists
+    const noItemsMessage = document.querySelector(".no-items-message");
+    if (noItemsMessage) {
+        noItemsMessage.remove();
+    }
+
     // Display a message if no items match the filters
     if (!hasVisibleItems) {
-        shopContainer.innerHTML = `<p class="no-items-message">No items match the selected filters.</p>`;
+        const shopContainer = document.getElementById("shop-list");
+        const message = document.createElement("p");
+        message.className = "no-items-message";
+        message.textContent = "No items match the selected filters.";
+        shopContainer.appendChild(message);
     }
 }
 

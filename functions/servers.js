@@ -2,28 +2,26 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 const mongoURI = process.env.MONGO_URI;
-let client = null;
-
-async function connectToDatabase() {
-    if (!client) {
-        client = new MongoClient(mongoURI);
-        await client.connect();
-    }
-    return client.db("web");
-}
 
 exports.handler = async () => {
-    try {
-        const db = await connectToDatabase();
-        const servers = await db.collection("servers").find().toArray();
-        return {
-            statusCode: 200,
-            body: JSON.stringify(servers),
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Failed to fetch servers" }),
-        };
-    }
+  try {
+    const client = new MongoClient(mongoURI);
+    await client.connect();
+    const db = client.db("web");
+    const servers = await db.collection("servers").find().project({ name: 1, game: 1, img: 1, joinLink: 1 }).toArray();
+    await client.close();
+
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(servers),
+    };
+  } catch (error) {
+    console.error("Error fetching servers:", error);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Failed to fetch servers" }),
+    };
+  }
 };

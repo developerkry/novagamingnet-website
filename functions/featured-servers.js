@@ -1,35 +1,26 @@
 const { MongoClient } = require("mongodb");
 
-const mongoURI = "mongodb+srv://nova:1234@nova.b6duy3u.mongodb.net/web";
-let client = null;
-
-async function connectToDatabase() {
-    if (!client) {
-        client = new MongoClient(mongoURI);
-        await client.connect();
-    }
-    return client.db("web");
-}
+const mongoURI = process.env.MONGO_URI;
 
 exports.handler = async () => {
-    try {
-        const db = await connectToDatabase();
-        const servers = await db.collection("servers").find().toArray();
-        const weightedServers = [];
-        servers.forEach(server => {
-            for (let i = 0; i < server.bias; i++) {
-                weightedServers.push(server);
-            }
-        });
-        const featured = weightedServers.sort(() => Math.random() - 0.5).slice(0, 3);
-        return {
-            statusCode: 200,
-            body: JSON.stringify(featured),
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Failed to fetch featured servers" }),
-        };
-    }
+  try {
+    const client = new MongoClient(mongoURI);
+    await client.connect();
+    const db = client.db("web");
+    const featuredServers = await db.collection("servers").find().limit(5).project({ name: 1, game: 1, img: 1, joinLink: 1 }).toArray(); // Limit to 5 servers
+    await client.close();
+
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(featuredServers),
+    };
+  } catch (error) {
+    console.error("Error fetching featured servers:", error);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Failed to fetch featured servers" }),
+    };
+  }
 };
