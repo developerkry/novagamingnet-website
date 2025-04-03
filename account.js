@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const accountManagement = document.getElementById("account-management");
   const registerLink = document.getElementById("register-link");
   const loginLink = document.getElementById("login-link");
+  const closeButtons = document.querySelectorAll(".close-button");
 
   const username = localStorage.getItem("username");
   if (!username) {
@@ -317,6 +318,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
+  // Close modals
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      loginModal.style.display = "none";
+      registerModal.style.display = "none";
+    });
+  });
+
   // Switch to register modal
   registerLink.addEventListener("click", (event) => {
     event.preventDefault();
@@ -329,13 +338,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     event.preventDefault();
     registerModal.style.display = "none";
     loginModal.style.display = "flex"; // Set to "flex" to retain centering
-  });
-
-  // Ensure close buttons work for both modals
-  document.querySelectorAll(".close-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.getElementById("login-modal").style.display = "none";
-      document.getElementById("register-modal").style.display = "none";
-    });
   });
 });

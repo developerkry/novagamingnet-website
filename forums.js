@@ -19,12 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   };
 
-  // Check if the user is already logged in
+  // Check if the user is logged in
   const username = localStorage.getItem("username");
-  if (username) {
-    loginModal.style.display = "none"; // Ensure the login modal is hidden
-  } else {
-    loginModal.style.display = "flex"; // Show the login modal
+  if (!username) {
+    loginModal.style.display = "flex"; // Show the login modal if not logged in
   }
 
   // Close modals

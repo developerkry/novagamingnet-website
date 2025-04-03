@@ -734,77 +734,106 @@ footer {
 }
 
 /* Input Modal Styling */
-#input-modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#input-modal .modal-content {
-    background-color: #1b1b1b;
-    padding: 20px;
-    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 90%;
     max-width: 400px;
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-#input-modal h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal h2 {
+    font-size: 1.5rem;
     color: white;
+    margin-bottom: 10px;
 }
 
-#input-modal input {
-    width: 80%;
-    margin: 0 auto;
-    display: block;
+.modal input,
+.modal button {
+    width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #333;
+    margin: 5px 0;
     border-radius: 5px;
+    border: 1px solid #333;
     background-color: #222;
     color: white;
 }
 
-#input-modal .cta-button {
-    width: 80%;
-    margin: 0 auto;
-    display: block;
-    padding: 10px;
+.modal input {
+    width: calc(100% - 20px); /* Ensure inputs stay within the modal */
+    max-width: 100%; /* Prevent overflow */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.modal .cta-button {
     background-color: #5865f2;
-    color: white;
-    border: none;
-    border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#input-modal .cta-button:hover {
-    background-color: #4752c4;
-}
-
-#input-modal .close-button {
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
     color: white;
-    float: right;
-    font-size: 1.5rem;
+    border: none;
+    font-size: 1rem; /* Small font size for the "X" */
     font-weight: bold;
     cursor: pointer;
+    width: 20px !important; /* Force a very small width */
+    height: 20px; /* Very small height */
+    display: flex; /* Center the "X" */
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove unnecessary padding */
+    line-height: 1; /* Ensure proper alignment */
+    transition: color 0.3s ease;
 }
 
-#input-modal .close-button:hover {
-    color: #ccc;
+.close-button:hover {
+    color: #ff4d4d;
+}
+
+.modal button #cls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height */
+    display: flex; /* Center the "X" */
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove unnecessary padding */
+    line-height: 1; /* Ensure proper alignment */
+    transition: color 0.3s ease;
+}
+
+.modal button #cls:hover {
+    color: #ff4d4d; /* Change color on hover */
+}
+
+.modal .cta-button:hover {
+    background-color: #4752c4;
 }
 
 /* Account Page Styling */

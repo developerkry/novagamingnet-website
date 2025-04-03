@@ -30,7 +30,7 @@
     <!-- Login Popup Modal -->
     <div id="login-modal" class="modal">
       <div class="modal-content">
-        <span class="close-button">&times;</span>
+        <button class="close-button" onclick="document.getElementById('login-modal').style.display='none'">&times;</button>
         <h2>Login</h2>
         <form id="login-form">
           <input type="email" id="email" placeholder="Enter your email" required />
@@ -44,7 +44,7 @@
     <!-- Registration Modal -->
     <div id="register-modal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span class="close-button">&times;</span>
+        <button class="close-button" onclick="document.getElementById('register-modal').style.display='none'">&times;</button>
         <h2>Register</h2>
         <form id="register-form">
           <input type="text" id="register-username" placeholder="Enter your username" required />

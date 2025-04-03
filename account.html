@@ -30,7 +30,7 @@
     <!-- Login Popup Modal -->
     <div id="login-modal" class="modal">
       <div class="modal-content">
-        <span class="close-button">&times;</span>
+        <button class="close-button" onclick="document.getElementById('login-modal').style.display='none'">&times;</button>
         <h2>Login</h2>
         <form id="login-form">
           <input type="email" id="email" placeholder="Enter your email" required />
@@ -44,7 +44,7 @@
     <!-- Registration Modal -->
     <div id="register-modal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span class="close-button">&times;</span>
+        <button class="close-button" onclick="document.getElementById('register-modal').style.display='none'">&times;</button>
         <h2>Register</h2>
         <form id="register-form">
           <input type="text" id="register-username" placeholder="Enter your username" required />
@@ -59,7 +59,7 @@
     <!-- Authentication Modal -->
     <div id="auth-modal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span class="close-button" onclick="document.getElementById('auth-modal').style.display='none'">&times;</span>
+        <button class="close-button" onclick="document.getElementById('auth-modal').style.display='none'">&times;</button>
         <h2>Authenticate</h2>
         <form id="auth-form">
           <input type="password" id="auth-password" placeholder="Enter your password" required />
@@ -71,7 +71,7 @@
     <!-- Input Modal -->
     <div id="input-modal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span class="close-button" onclick="document.getElementById('input-modal').style.display='none'">&times;</span>
+        <button class="close-button" onclick="document.getElementById('input-modal').style.display='none'">&times;</button>
         <h2 id="input-modal-title">Input</h2>
         <form id="input-modal-form">
           <input type="text" id="input-modal-field" placeholder="Enter value" required />
