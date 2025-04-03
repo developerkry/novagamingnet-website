@@ -405,6 +405,113 @@ section h2 {
     background-color: #4752c4;
 }
 
+/* Exclusive Content Creators and Staff Team */
+#exclusive-content {
+    padding: 2rem;
+}
+
+#exclusive-content h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.exclusive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem; /* Reduced gap between cards */
+    justify-items: center;
+}
+
+.creator-item,
+.staff-item {
+    background-color: #1b1b1b;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.creator-item:hover,
+.staff-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.creator-item img,
+.staff-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.staff-item .staff-rank {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+    z-index: 1; /* Ensure the rank is above the image */
+}
+
+.creator-item h3,
+.staff-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.staff-item p {
+    margin: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #ccc;
+    font-weight: bold;
+}
+
+.creator-item .item-button {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    z-index: 2;
+}
+
+.creator-item:hover .item-button {
+    display: block;
+}
+
+.creator-item .item-button:hover {
+    background-color: #0056b3;
+}
+
+/* Placeholder styling for creators without a URL */
+.creator-item .item-button[style*="pointer-events: none"] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 /* Footer */
 footer {
     background-color: #000000;

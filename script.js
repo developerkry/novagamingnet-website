@@ -175,6 +175,51 @@ async function displaySponsors() {
     }
 }
 
+// Display Exclusive Content Creators and Staff Team
+async function displayExclusive() {
+    const creatorsContainer = document.getElementById("creators-container");
+    const staffContainer = document.getElementById("staff-container");
+
+    creatorsContainer.innerHTML = "<p>Loading exclusive content creators...</p>";
+    staffContainer.innerHTML = "<p>Loading staff team...</p>";
+
+    try {
+        const { creators, staff } = await fetchData("exclusive");
+
+        // Display creators
+        if (creators.length === 0) {
+            creatorsContainer.innerHTML = "<p>No exclusive content creators available.</p>";
+        } else {
+            creatorsContainer.innerHTML = creators.map(creator => `
+                <div class="creator-item">
+                    <img src="${creator.img}" alt="${creator.name}">
+                    <h3>${creator.name}</h3>
+                    <a href="${creator.url || '#'}" target="_blank" class="item-button" ${!creator.url ? 'style="pointer-events: none; opacity: 0.5;"' : ''}>
+                        ${creator.url ? "Visit Creator" : "URL Not Set"}
+                    </a>
+                </div>
+            `).join("");
+        }
+
+        // Display staff
+        if (staff.length === 0) {
+            staffContainer.innerHTML = "<p>No staff team members available.</p>";
+        } else {
+            staffContainer.innerHTML = staff.map(member => `
+                <div class="staff-item">
+                    <img src="${member.img}" alt="${member.name}">
+                    <div class="staff-rank">${member.role}</div>
+                    <h3>${member.name}</h3>
+                </div>
+            `).join("");
+        }
+    } catch (error) {
+        console.error("Error fetching exclusive content:", error);
+        creatorsContainer.innerHTML = "<p>Failed to load exclusive content creators. Please try again later.</p>";
+        staffContainer.innerHTML = "<p>Failed to load staff team. Please try again later.</p>";
+    }
+}
+
 // Navbar hide/show on scroll for mobile
 let lastScrollY = window.scrollY;
 const navbar = document.querySelector("nav");
@@ -195,3 +240,4 @@ displayFeatured();
 displayGames();
 displayShop();
 displaySponsors();
+displayExclusive();
