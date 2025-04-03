@@ -1,0 +1,19 @@
+{
+  "name": "novagamingnet-website",
+  "version": "1.0.0",
+  "description": "NOVA Gaming Network Website",
+  "main": "script.js",
+  "scripts": {
+    "start": "netlify dev",
+    "build": "echo 'No build step required for this project'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mongodb": "^5.9.2",
+    "netlify-cli": "^15.0.0"
+  }
+}

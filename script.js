@@ -1,51 +1,16 @@
-const servers = [
-    { name: "Server 1", game: "FiveM", img: "./img/NOVA Gaming Network.png", bias: 3 },
-    { name: "Server 2", game: "FiveM", img: "./img/NOVA Gaming Network.png", bias: 3 },
-    { name: "Server 3", game: "FiveM", img: "./img/NOVA Gaming Network.png", bias: 3 },
-    { name: "Server 1", game: "Garry's Mod", img: "./img/NOVA.png", bias: 2 },
-    { name: "Server 2", game: "Garry's Mod", img: "./img/NOVA.png", bias: 2 },
-    { name: "Server 3", game: "Garry's Mod", img: "./img/NOVA.png", bias: 2 },
-    { name: "Server 1", game: "Beam.NG", img: "./img/Plus.png", bias: 1 },
-    { name: "Server 2", game: "Beam.NG", img: "./img/Plus.png", bias: 1 },
-    { name: "Server 3", game: "Beam.NG", img: "./img/Plus.png", bias: 1 },
-    { name: "Server 1", game: "Minecraft: Java Edition", img: "./img/Basic.png", bias: 1 },
-    { name: "Server 2", game: "Minecraft: Java Edition", img: "./img/Basic.png", bias: 1 },
-    { name: "Server 3", game: "Minecraft: Java Edition", img: "./img/Basic.png", bias: 1 },
-    { name: "Server 1", game: "Minecraft: Bedrock Edition", img: "./img/Premium.png", bias: 1 },
-    { name: "Server 2", game: "Minecraft: Bedrock Edition", img: "./img/Premium.png", bias: 1 },
-    { name: "Server 3", game: "Minecraft: Bedrock Edition", img: "./img/Premium.png", bias: 1 },
-    { name: "Server 1", game: "RedM", img: "./img/Background.png", bias: 3 },
-    { name: "Server 2", game: "RedM", img: "./img/Background.png", bias: 3 },
-    { name: "Server 3", game: "RedM", img: "./img/Background.png", bias: 3 },
-];
-
-// Shop items
-const shopItems = [
-    { name: "Item 1", price: 5, game: "FiveM", img: "./img/NOVA Gaming Network.png" },
-    { name: "Item 2", price: 25, game: "Garry's Mod", img: "./img/NOVA.png" },
-    { name: "Item 3", price: 50, game: "Beam.NG", img: "./img/Plus.png" },
-    { name: "Item 4", price: 100, game: "Minecraft: Java Edition", img: "./img/Basic.png" },
-    { name: "Item 5", price: 0, game: "Minecraft: Bedrock Edition", img: "./img/Premium.png" },
-];
-
-// Selects featured servers with bias
-function getFeaturedServers() {
-    let weightedServers = [];
-    servers.forEach(server => {
-        for (let i = 0; i < server.bias; i++) {
-            weightedServers.push(server);
-        }
-    });
-
-    return weightedServers.sort(() => Math.random() - 0.5).slice(0, 3);
+// Fetch data from the backend
+async function fetchData(endpoint) {
+    const response = await fetch(`/.netlify/functions/${endpoint}`);
+    return response.json();
 }
 
 // Display Featured Servers
-function displayFeatured() {
+async function displayFeatured() {
     const featuredContainer = document.getElementById("featuredList");
     featuredContainer.innerHTML = "";
 
-    getFeaturedServers().forEach(server => {
+    const servers = await fetchData("featured-servers");
+    servers.forEach(server => {
         featuredContainer.innerHTML += `
             <div class="server-item">
                 <img src="${server.img}" alt="${server.name}">
@@ -57,8 +22,9 @@ function displayFeatured() {
 }
 
 // Display Games
-function displayGames() {
+async function displayGames() {
     const gamesContainer = document.getElementById("games-container");
+    const servers = await fetchData("servers");
     const games = {};
 
     servers.forEach(server => {
@@ -83,8 +49,10 @@ function displayGames() {
 }
 
 // Display Shop Items
-function displayShop() {
+async function displayShop() {
     const shopContainer = document.getElementById("shop-list");
+    const shopItems = await fetchData("shop-items");
+
     shopContainer.innerHTML = shopItems.map(item => `
         <div class="shop-item" data-game="${item.game}" data-price="${item.price}">
             <img src="${item.img}" alt="${item.name}">
@@ -106,19 +74,6 @@ function applyFilters() {
     const gameFilter = document.getElementById("filter-game").value;
     const priceFilter = document.getElementById("filter-price").value;
     const shopContainer = document.getElementById("shop-list");
-
-    // Reset shop items
-    shopContainer.innerHTML = shopItems.map(item => `
-        <div class="shop-item" data-game="${item.game}" data-price="${item.price}">
-            <img src="${item.img}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>
-                <span>${item.game}</span>
-                <span>$${item.price}</span>
-            </p>
-            <button class="item-button" onclick="alert('Added ${item.name} to cart')">Add</button>
-        </div>
-    `).join("");
 
     const shopItemsElements = document.querySelectorAll(".shop-item");
     let hasVisibleItems = false;
@@ -146,16 +101,11 @@ function applyFilters() {
     }
 }
 
-// Sponsors data
-const sponsors = [
-    { name: "Sponsor 1", img: "./img/basic.png", link: "https://example.com" },
-    { name: "Sponsor 2", img: "./img/premium.png", link: "https://example.com" },
-    { name: "Sponsor 3", img: "./img/plus.png", link: "https://example.com" },
-];
-
 // Display Sponsors
-function displaySponsors() {
+async function displaySponsors() {
     const sponsorsContainer = document.getElementById("sponsors-container");
+    const sponsors = await fetchData("sponsors");
+
     sponsorsContainer.innerHTML = sponsors.map(sponsor => `
         <div class="sponsor-item">
             <img src="${sponsor.img}" alt="${sponsor.name}" />
