@@ -7,8 +7,25 @@ exports.handler = async () => {
     const client = new MongoClient(mongoURI);
     await client.connect();
     const db = client.db("web");
-    const featuredServers = await db.collection("servers").find().limit(5).project({ name: 1, game: 1, img: 1, joinLink: 1 }).toArray(); // Limit to 5 servers
+    const servers = await db.collection("servers").find().toArray(); // Fetch all servers
     await client.close();
+
+    // Weighted random selection based on bias
+    const weightedServers = [];
+    servers.forEach(server => {
+      for (let i = 0; i < server.bias; i++) {
+        weightedServers.push(server);
+      }
+    });
+
+    // Shuffle the weighted servers array
+    for (let i = weightedServers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [weightedServers[i], weightedServers[j]] = [weightedServers[j], weightedServers[i]];
+    }
+
+    // Select up to 5 servers
+    const featuredServers = weightedServers.slice(0, 5);
 
     return {
       statusCode: 200,
