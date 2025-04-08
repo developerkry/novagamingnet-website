@@ -829,6 +829,20 @@ footer {
   color: #333; /* Slightly darker on hover */
 }
 
+/* Adjusted close button size */
+.close-button {
+  font-size: 1.2rem; /* Reduced size */
+  top: 5px; /* Adjusted position */
+  right: 5px;
+}
+
+/* Adjusted close button size further */
+.close-button {
+  font-size: 1rem; /* Further reduced size */
+  top: 5px; /* Maintain adjusted position */
+  right: 5px;
+}
+
 /* Account Page Styling */
 #account-management {
     background-color: #1b1b1b;
@@ -1261,4 +1275,74 @@ footer {
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+#create-thread-modal .close-button:hover {
+  color: #ccc;
+}
+
+/* Login and Register Modal Styling */
+#login-modal, #register-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 20px;
+}
+
+#login-modal h2, #register-modal h2 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#login-modal input, #register-modal input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: white;
+  box-sizing: border-box;
+}
+
+#login-modal button, #register-modal button {
+  background-color: #5865f2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#login-modal button:hover, #register-modal button:hover {
+  background-color: #4752c4;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #ccc;
 }
