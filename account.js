@@ -48,52 +48,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Handle login form submission
-  document
-    .getElementById("login-form")
-    .addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      try {
-        const response = await fetch("/.netlify/functions/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          // Store token and username in localStorage
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("username", data.username);
-
-          // Populate user data
-          usernameDisplay.textContent = data.username;
-          emailDisplay.textContent = email;
-          avatarPreview.src = data.avatar || "https://i.imgur.com/WFSYLmd.jpg";
-
-          // Hide login modal and show account management section
-          loginModal.style.display = "none";
-          accountManagement.style.display = "block";
-          showAlert("Login successful!", "success");
-        } else {
-          showAlert(data.error || "Login failed. Please try again.", "error");
-        }
-      } catch (error) {
-        console.error("Error logging in:", error);
-        showAlert("An error occurred. Please try again later.", "error");
-      }
-    });
-
   // Handle logout
   logoutButton.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    showAlert("You have been logged out.", "neutral");
-    loginModal.style.display = "flex";
-    accountManagement.style.display = "none";
+    window.location.href = "/forums.html"; // Redirect to the forum page
   });
 
   // Handle avatar change button click
@@ -326,17 +285,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // Switch to register modal
-  registerLink.addEventListener("click", (event) => {
-    event.preventDefault();
-    loginModal.style.display = "none";
-    registerModal.style.display = "flex"; // Set to "flex" to retain centering
-  });
+  async function fetchUserActivity() {
+    const activityContainer = document.getElementById("activity-container");
 
-  // Switch to login modal
-  loginLink.addEventListener("click", (event) => {
-    event.preventDefault();
-    registerModal.style.display = "none";
-    loginModal.style.display = "flex"; // Set to "flex" to retain centering
-  });
+    try {
+      const response = await fetch("/.netlify/functions/user-activity", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: localStorage.getItem("username") }),
+      });
+
+      if (!response.ok) throw new Error("Failed to fetch user activity");
+      const activity = await response.json();
+
+      activityContainer.innerHTML = activity.length
+        ? activity
+            .map(
+              (item) => `
+              <div class="activity-item">
+                <p><strong>${item.type}:</strong> ${item.content}</p>
+                <span>${new Date(item.date).toLocaleString()}</span>
+              </div>`
+            )
+            .join("")
+        : "<p>No activity found.</p>";
+    } catch (error) {
+      console.error("Error fetching user activity:", error);
+      activityContainer.innerHTML = "<p>Failed to load activity. Please try again later.</p>";
+    }
+  }
+
+  fetchUserActivity();
 });

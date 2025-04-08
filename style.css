@@ -722,8 +722,23 @@ section h2 {
 }
 
 #new-thread-form textarea {
-    resize: vertical;
-    height: 150px;
+    resize: vertical; /* Allow vertical resizing only */
+    max-height: 200px; /* Set a maximum height */
+    overflow-y: auto; /* Enable scrolling if content exceeds height */
+}
+
+/* Adjust the forums container to stack elements vertically */
+#forums-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Add spacing between threads and the button */
+}
+
+/* Ensure the 'Create Thread' button is centered and below the threads */
+#create-thread-button {
+  align-self: center;
+  margin-top: 20px;
 }
 
 /* Footer */
@@ -733,107 +748,85 @@ footer {
     margin-top: 20px;
 }
 
-/* Input Modal Styling */
+/* Modal Styling */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 400px;
-    background-color: #1b1b1b;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    text-align: center;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the modal */
+  width: 90%;
+  max-width: 500px; /* Limit the width */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  background-color: #1b1b1b;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .modal h2 {
-    font-size: 1.5rem;
-    color: white;
-    margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 15px;
 }
 
 .modal input,
+.modal textarea {
+  width: calc(100% - 20px); /* Ensure fields fit within the modal */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: white;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.modal textarea {
+  resize: vertical; /* Allow vertical resizing only */
+  max-height: 200px; /* Set a maximum height */
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
+}
+
 .modal button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #333;
-    background-color: #222;
-    color: white;
+  background-color: #5865f2;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 10px 15px; /* Adjusted padding for better size */
+  border-radius: 5px;
+  border: none;
+  color: white;
+  width: auto; /* Ensure buttons are not stretched */
+  max-width: 200px; /* Limit button width */
+  margin: 10px auto; /* Center align buttons */
 }
 
-.modal input {
-    width: calc(100% - 20px); /* Ensure inputs stay within the modal */
-    max-width: 100%; /* Prevent overflow */
-    box-sizing: border-box; /* Include padding and border in width */
-}
-
-.modal .cta-button {
-    background-color: #5865f2;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.modal button:hover {
+  background-color: #4752c4;
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    color: white;
-    border: none;
-    font-size: 1rem; /* Small font size for the "X" */
-    font-weight: bold;
-    cursor: pointer;
-    width: 20px !important; /* Force a very small width */
-    height: 20px; /* Very small height */
-    display: flex; /* Center the "X" */
-    align-items: center;
-    justify-content: center;
-    padding: 0; /* Remove unnecessary padding */
-    line-height: 1; /* Ensure proper alignment */
-    transition: color 0.3s ease;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none; /* Remove background */
+  color: black; /* Set color to black */
+  border: none;
+  font-size: 1.2rem; /* Adjust size for a smaller icon */
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .close-button:hover {
-    color: #ff4d4d;
-}
-
-.modal button #cls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    width: 30px; /* Fixed width */
-    height: 30px; /* Fixed height */
-    display: flex; /* Center the "X" */
-    align-items: center;
-    justify-content: center;
-    padding: 0; /* Remove unnecessary padding */
-    line-height: 1; /* Ensure proper alignment */
-    transition: color 0.3s ease;
-}
-
-.modal button #cls:hover {
-    color: #ff4d4d; /* Change color on hover */
-}
-
-.modal .cta-button:hover {
-    background-color: #4752c4;
+  color: #333; /* Slightly darker on hover */
 }
 
 /* Account Page Styling */
@@ -1160,4 +1153,112 @@ footer {
         opacity: 0;
         transform: translateY(-10px);
     }
+}
+
+/* Filter Container Styling */
+#filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+#filter-container select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+}
+
+#filter-container button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#filter-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Create Thread Modal Styling */
+#create-thread-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the modal */
+  width: auto; /* Adjust width to fit content */
+  height: auto; /* Adjust height to fit content */
+  background-color: transparent; /* Remove unnecessary background */
+  z-index: 1000;
+}
+
+#create-thread-modal .modal-content {
+  background-color: #1b1b1b;
+  padding: 30px; /* Increased padding for better spacing */
+  border-radius: 12px; /* Slightly more rounded corners */
+  width: 90%;
+  max-width: 600px; /* Increased max width */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Enhanced shadow for depth */
+}
+
+#create-thread-modal h2 {
+  font-size: 1.8rem; /* Slightly larger font size */
+  color: white;
+  margin-bottom: 20px;
+  text-align: center; /* Center the title */
+}
+
+#create-thread-modal input,
+#create-thread-modal textarea,
+#create-thread-modal select {
+  width: 100%; /* Full width for better alignment */
+  padding: 12px; /* Increased padding */
+  margin: 10px 0;
+  border-radius: 6px; /* Slightly more rounded */
+  border: 1px solid #444; /* Slightly lighter border */
+  background-color: #222;
+  color: white;
+  box-sizing: border-box;
+}
+
+#create-thread-modal textarea {
+  resize: vertical;
+  max-height: 250px; /* Increased max height */
+  overflow-y: auto;
+}
+
+#create-thread-modal button {
+  background-color: #5865f2;
+  color: white;
+  padding: 12px 20px; /* Increased padding */
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#create-thread-modal button:hover {
+  background-color: #4752c4; /* Slightly darker hover effect */
+}
+
+#create-thread-modal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
